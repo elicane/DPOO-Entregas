@@ -1,9 +1,12 @@
 package uniandes.dpoo.estructuras.logica;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre mapas.
@@ -41,8 +44,17 @@ public class SandboxMapas
      */
     public List<String> getValoresComoLista( )
     {
-        return null;
-    }
+        List<String> lista = new LinkedList<String>( );
+
+        for (String valor : this.mapaCadenas.values())
+        {
+            lista.add(valor);
+        }
+
+        Collections.sort(lista);
+        
+        return lista;
+    }    
 
     /**
      * Retorna una lista con las llaves del mapa ordenadas lexicográficamente de mayor a menor
@@ -50,7 +62,16 @@ public class SandboxMapas
      */
     public List<String> getLlavesComoListaInvertida( )
     {
-        return null;
+    	List<String> listai = new LinkedList<String>( );
+
+        for (String valor : this.mapaCadenas.values())
+        {
+            listai.add(valor);
+        }
+
+        Collections.sort(listai, Collections.reverseOrder());
+        
+        return listai;
     }
 
     /**
@@ -61,7 +82,28 @@ public class SandboxMapas
      */
     public String getPrimera( )
     {
-        return null;
+    	if (this.mapaCadenas.isEmpty()) 
+    	{
+    		return null;
+    	}
+    	else 
+    	{
+    		Set<String> llaves = this.mapaCadenas.keySet();
+    		int tamaño = llaves.size();
+    		String[] array; 
+    		array = llaves.toArray(new String[tamaño]);
+    		String menor = array[0];
+    		for (int p = 0; p < tamaño; p++) 
+    		{
+    			if ((array[p].compareTo(menor) < 0)) 
+    			{
+    				menor = array[p];
+    			}
+    		}
+    		return menor;
+    		
+    	}
+        
     }
 
     /**
@@ -72,7 +114,27 @@ public class SandboxMapas
      */
     public String getUltima( )
     {
-        return null;
+    	if (this.mapaCadenas.isEmpty()) 
+    	{
+    		return null;
+    	}
+    	else 
+    	{
+    		Set<String> llaves = this.mapaCadenas.keySet();
+    		int tamaño = llaves.size();
+    		String[] array; 
+    		array = llaves.toArray(new String[tamaño]);
+    		String mayor = array[0];
+    		for (int p = 0; p < tamaño; p++) 
+    		{
+    			if ((array[p].compareTo(mayor) > 0)) 
+    			{
+    				mayor = array[p];
+    			}
+    		}
+    		return mayor;
+    		
+    	}
     }
 
     /**
@@ -83,7 +145,17 @@ public class SandboxMapas
      */
     public Collection<String> getLlaves( )
     {
-        return null;
+    	Set<String> llaves = this.mapaCadenas.keySet();
+		int tamaño = llaves.size();
+		String[] array; 
+		array = llaves.toArray(new String[tamaño]);
+		List<String> lista;
+		lista = new LinkedList<String>( );
+		for (int p = 0; p < tamaño; p++) 
+		{
+			lista.add(array[p].toUpperCase());
+		}
+		return lista;
     }
 
     /**
@@ -92,7 +164,7 @@ public class SandboxMapas
      */
     public int getCantidadCadenasDiferentes( )
     {
-        return -1;
+        return this.mapaCadenas.size();
     }
 
     /**
@@ -104,7 +176,22 @@ public class SandboxMapas
      */
     public void agregarCadena( String cadena )
     {
+    	 List<Character> list = new LinkedList<Character>();
+    	 
+         for (char c: cadena.toCharArray()) 
+         {
+        	 list.add(c);
+         }
 
+         Collections.reverse(list);
+         StringBuilder cad =  new StringBuilder(list.size());
+         for (Character c: list) 
+         {
+             cad.append(c);
+         }
+  
+         String key = cad.toString();
+    	this.mapaCadenas.put(key, cadena);
     }
 
     /**
@@ -113,7 +200,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConLLave( String llave )
     {
-
+    	this.mapaCadenas.remove(llave);
     }
 
     /**
@@ -122,7 +209,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConValor( String valor )
     {
-
+    	
     }
 
     /**
