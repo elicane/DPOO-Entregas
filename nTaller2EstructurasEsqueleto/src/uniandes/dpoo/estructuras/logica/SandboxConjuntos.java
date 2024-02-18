@@ -120,7 +120,9 @@ public class SandboxConjuntos
      */
     public Collection<String> getSiguientes( String cadena )
     {
-        return null;
+    	NavigableSet<String> newset = this.arbolCadenas.tailSet(cadena, true);
+
+        return newset;
     }
 
     /**
@@ -162,8 +164,9 @@ public class SandboxConjuntos
      */
     public void eliminarCadenaSinMayusculasOMinusculas( String cadena )
     {
-    	String eliminar = cadena;
-    	this.arbolCadenas.remove(eliminar);
+    	this.arbolCadenas.remove(cadena);
+    	this.arbolCadenas.remove(cadena.toLowerCase());
+    	this.arbolCadenas.remove(cadena.toUpperCase());
     }
 
     /**
@@ -182,7 +185,15 @@ public class SandboxConjuntos
      */
     public void reiniciarConjuntoCadenas( List<Object> objetos )
     {
-
+    	this.arbolCadenas.clear();
+    	int tamaño = objetos.size();
+    	for (int p = 0; p < tamaño; p++) 
+    	{
+    		Object elemento = objetos.get(p);
+    		String añadir = elemento.toString();
+    		this.arbolCadenas.add(añadir);
+    	}
+    	
     }
 
     /**
@@ -192,6 +203,16 @@ public class SandboxConjuntos
      */
     public void volverMayusculas( )
     {
+    	int tamaño = this.arbolCadenas.size();
+    	String[] cadenasArray;
+    	cadenasArray = new String[tamaño];
+        this.arbolCadenas.toArray(cadenasArray);
+        this.arbolCadenas.clear();
+    	for (int p = 0; p < tamaño; p++)
+    	{
+    		String elemento = cadenasArray[p];
+    		this.arbolCadenas.add(elemento.toUpperCase());
+    	}
     }
 
     /**
@@ -199,8 +220,8 @@ public class SandboxConjuntos
      */
     public TreeSet<String> invertirCadenas( )
     {
-    	this.arbolCadenas.reversed()
-        TreeSet<String> arbol = ;
+    	
+    	NavigableSet<String> newset = this.arbolCadenas.reversed();
     	return null;
     }
 
@@ -211,7 +232,24 @@ public class SandboxConjuntos
      */
     public boolean compararElementos( String[] otroArreglo )
     {
-        return false;
+    	int tamaño1 = this.arbolCadenas.size();
+    	int tamaño2 = otroArreglo.length;
+    	if (tamaño1 != tamaño2) 
+    	{
+    		return false;
+    	}
+    	else 
+    	{
+    		for (int p = 0; p < tamaño1; p++) 
+    		{
+    			if (!(this.arbolCadenas.contains(otroArreglo[p]))) 
+    			{
+    				return false;
+    			}
+    		}
+    		return true;
+    	}
+        
     }
 
 }
